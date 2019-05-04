@@ -91,10 +91,41 @@ class ValorPresenteCantidadFuturaView (TemplateView):
 
 class SerieUniformeEquivalentePresenteView (TemplateView):
 
-    template_name = 'ecuacion.3.get.html'
+    getTemplate = 'ecuacion.3.get.html'
+    postTemplate = 'ecuacion.3.post.html'
 
     def get(self, request):
-        return render(request, self.template_name)
+
+        valorPresente = ValorPresenteForm()
+        interes = InteresForm()
+        numeroPeriodos = NumeroPeriodosForm()
+        tipoPeriodos = TipoPeriodosForm()
+        return render(request, self.getTemplate,
+                      {'interes': interes, 'valorPresente': valorPresente,
+                       'numeroPeriodos': numeroPeriodos, 'tipoPeriodos': tipoPeriodos})
+
+    def post(self, request):
+
+        valorPresente = ValorPresenteForm(request.POST)
+        interes = InteresForm(request.POST)
+        numeroPeriodos = NumeroPeriodosForm(request.POST)
+        tipoPeriodos = TipoPeriodosForm(request.POST)
+        periodos = []
+
+        for x in range(int(numeroPeriodos['numeroPeriodos'].value()) + 1):
+            periodos.append(str(x))
+
+        for x in periodos:
+            print(periodos)
+            print(x)
+
+        return render(request, self.postTemplate,
+                      {'interes': interes, 'valorPresente': valorPresente,
+                       'numeroPeriodos': numeroPeriodos, 'tipoPeriodos': tipoPeriodos,
+                       'stringTipoPeriodos': tipoPeriodos['tipoPeriodos'].value(),
+                       'stringNumeroPeriodos': numeroPeriodos['numeroPeriodos'].value(),
+                       'stringValorPresente': valorPresente['valorPresente'].value(),
+                       'stringValorInteres': interes['interes'].value()})
 
 
 class ValorPresenteSerieUniformeView (TemplateView):
