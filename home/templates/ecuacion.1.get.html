@@ -1,0 +1,33 @@
+{% extends 'header.html' %}
+
+{% block head %}
+
+    <title>Valor futuro de una cantidad presente</title>
+
+    <div class="container" align="middle" >
+
+        <div class="jumbotron">
+
+            <h1>Valor futuro de una cantidad presente (F)</h1>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <form method="post">
+
+            {% csrf_token %}
+            {{ valorPresente.as_p }}
+            {{ interes.as_p}}
+            {{ numeroPeriodos.as_p }}
+            {{ tipoPeriodos.as_p }}
+            <button type="submit">Calcular</button>
+        </form>
+
+    </div>
+
+{% endblock %}
