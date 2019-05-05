@@ -21,11 +21,16 @@
 
             <div class="col-md-4">
 
-                {% csrf_token %}
-                {{ valorPresente.as_p }}
-                {{ interes.as_p}}
-                {{ numeroPeriodos.as_p }}
-                {{ tipoPeriodos.as_p }}
+                <form method="post">
+
+                    {% csrf_token %}
+                    {{ valorPresente.as_p }}
+                    {{ interes.as_p}}
+                    {{ numeroPeriodos.as_p }}
+                    {{ tipoPeriodos.as_p }}
+
+                    <button type="submit">Calcular</button>
+                </form>
             </div>
 
             <div class="col-md-8">
