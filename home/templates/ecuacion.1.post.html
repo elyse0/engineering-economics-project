@@ -2,13 +2,13 @@
 
 {% block head %}
 
-    <title>Valor futuro de una cantidad presente (F)</title>
+    <title>Valor futuro de una cantidad presente</title>
 
     <div class="container" align="middle" >
 
         <div class="jumbotron">
 
-            <h1>Valor futuro de una cantidad presente (P)</h1>
+            <h1>Valor futuro de una cantidad presente (F)</h1>
         </div>
     </div>
 
@@ -94,7 +94,7 @@
         }
         });
 
-        document.getElementById("mydiv").innerHTML = 'Valor Futuro: ' + pagos[pagos.length - 1].toFixed(6);
+        document.getElementById("mydiv").innerHTML = 'Valor Futuro (F): ' + pagos[pagos.length - 1].toFixed(6);
     </script>
 
 {% endblock %}
