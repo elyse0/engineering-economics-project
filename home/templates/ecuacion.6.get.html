@@ -2,10 +2,30 @@
 
 {% block head %}
 
-    Valor futuro de una serie uniforme
+
+    <title>Valor futuro de una serie uniforme</title>
+
+    <div class="container" align="middle" >
+
+        <div class="jumbotron">
+
+            <h1>Valor futuro de una serie uniforme (F)</h1>
+        </div>
+    </div>
 {% endblock %}
 
 {% block body %}
 
+    <div class="container">
 
+        <form method="post">
+
+            {% csrf_token %}
+            {{ valorSerie.as_p }}
+            {{ interes.as_p}}
+            {{ numeroPeriodos.as_p }}
+            {{ tipoPeriodos.as_p }}
+            <button type="submit">Calcular</button>
+        </form>
+    </div>
 {% endblock %}

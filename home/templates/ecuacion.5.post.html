@@ -2,10 +2,108 @@
 
 {% block head %}
 
-    Serie uniforme equivalente al futuro
+
+    <title>Serie uniforme equivalente al futuro</title>
+
+    <div class="container" align="middle" >
+
+        <div class="jumbotron">
+
+            <h1>Serie uniforme equivalente al futuro (A)</h1>
+        </div>
+    </div>
 {% endblock %}
 
 {% block body %}
 
+    <div class="container" >
+        <div class="row">
 
+            <div class="col-md-4">
+
+                <form method="post">
+
+                    {% csrf_token %}
+                    {{ valorFuturo.as_p }}
+                    {{ interes.as_p}}
+                    {{ numeroPeriodos.as_p }}
+                    {{ tipoPeriodos.as_p }}
+                    <button type="submit">Calcular</button>
+                </form>
+                <br>
+                <div id="mydiv"> </div>
+            </div>
+
+            <div class="col-md-8">
+
+                <canvas id="myChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var tipoPeriodoString;
+
+        if ('{{ stringTipoPeriodos }}' == 'Años')
+            tipoPeriodoString = 'año';
+        else if ('{{ stringTipoPeriodos }}' == 'Meses')
+            tipoPeriodoString = 'mes';
+        else tipoPeriodoString = 'dia';
+
+        var periodos = [];
+        for (let i = 0; i < Number({{ stringNumeroPeriodos }}) + 1; i++) {
+
+            periodos.push(i.toString())
+        }
+
+        var pagos = new Array(Number({{ stringNumeroPeriodos }}) + 1);
+
+        var valorSerie = Number({{ stringValorFuturo }}) * (Number({{ stringValorInteres }}) / ((Math.pow((1 + Number({{ stringValorInteres }})), Number({{ stringNumeroPeriodos }})) - 1)));
+
+        for (let i = 0; i < pagos.length - 1; i++) {
+            pagos[i] = (valorSerie * -1).toString();
+        }
+
+        pagos[periodos.length - 1] =  (Number({{stringValorFuturo}}).toFixed(6)).toString();
+
+        var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'line',
+        // The data for our dataset
+        data: {
+
+            labels: periodos,
+            datasets: [{
+                lineTension: 0,
+                steppedLine: 'middle',
+                label: 'Serie uniforme equivalente al futuro',
+                borderColor: 'rgb(255, 99, 132)',
+                data: pagos,
+            }]
+        },
+
+        // Configuration options go here
+        options: {
+            scales: {
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: '$'
+                    }
+                 }],
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: '{{ stringTipoPeriodos }}'
+                    }
+                 }]
+            }
+        }
+        });
+
+        document.getElementById("mydiv").innerHTML = 'Serie uniforme equivalente al futuro (A): $'
+            + valorSerie.toFixed(6) + '/' + tipoPeriodoString;
+    </script>
 {% endblock %}

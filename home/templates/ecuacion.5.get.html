@@ -2,10 +2,30 @@
 
 {% block head %}
 
-    Serie uniforme equivalente al futuro
+
+    <title>Serie uniforme equivalente al futuro</title>
+
+    <div class="container" align="middle" >
+
+        <div class="jumbotron">
+
+            <h1>Serie uniforme equivalente al futuro (A)</h1>
+        </div>
+    </div>
 {% endblock %}
 
 {% block body %}
 
+    <div class="container">
 
+        <form method="post">
+
+            {% csrf_token %}
+            {{ valorFuturo.as_p }}
+            {{ interes.as_p}}
+            {{ numeroPeriodos.as_p }}
+            {{ tipoPeriodos.as_p }}
+            <button type="submit">Calcular</button>
+        </form>
+    </div>
 {% endblock %}
