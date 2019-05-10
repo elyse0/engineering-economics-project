@@ -24,3 +24,7 @@ class TipoPeriodosForm (forms.Form):
 
     tipoPeriodos = forms.ChoiceField(label='Tipo de periodo', choices=[('Años', 'Años'), ('Meses', 'Meses'),
                                                                          ('Dias', 'Dias')])
+
+class ValorSerieForm(forms.Form):
+
+    valorSerie = forms.FloatField(label='Valor de la serie:', min_value= 0, max_value = 10000000)

@@ -20,11 +20,17 @@
 
             <div class="col-md-4">
 
-                {% csrf_token %}
-                {{ valorPresente.as_p }}
-                {{ interes.as_p}}
-                {{ numeroPeriodos.as_p }}
-                {{ tipoPeriodos.as_p }}
+                <form method="post">
+
+                    {% csrf_token %}
+                    {{ valorPresente.as_p }}
+                    {{ interes.as_p}}
+                    {{ numeroPeriodos.as_p }}
+                    {{ tipoPeriodos.as_p }}
+                    <button type="submit">Calcular</button>
+                </form>
+                <br>
+                <div id="mydiv"> </div>
             </div>
 
             <div class="col-md-8">
@@ -37,6 +43,13 @@
     <script>
 
         var ctx = document.getElementById('myChart').getContext('2d');
+        var tipoPeriodoString;
+
+        if ('{{ stringTipoPeriodos }}' == 'Años')
+            tipoPeriodoString = 'año';
+        else if ('{{ stringTipoPeriodos }}' == 'Meses')
+            tipoPeriodoString = 'mes';
+        else tipoPeriodoString = 'dia';
 
         var periodos = [];
         for (let i = 0; i < Number({{ stringNumeroPeriodos }}) + 1; i++) {
@@ -65,6 +78,7 @@
             labels: periodos,
             datasets: [{
                 lineTension: 0,
+                steppedLine: true,
                 label: 'Serie uniforme equivalente al presente',
                 borderColor: 'rgb(255, 99, 132)',
                 data: pagos,
@@ -89,5 +103,8 @@
             }
         }
         });
+
+        document.getElementById("mydiv").innerHTML = 'Serie uniforme equivalente al presente (A): $'
+            + valorFuturo.toFixed(6)  + '/' + tipoPeriodoString;
     </script>
 {% endblock %}

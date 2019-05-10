@@ -130,10 +130,40 @@ class SerieUniformeEquivalentePresenteView (TemplateView):
 
 class ValorPresenteSerieUniformeView (TemplateView):
 
-    template_name = 'ecuacion.4.get.html'
+    getTemplate = 'ecuacion.4.get.html'
+    postTemplate = 'ecuacion.4.post.html'
 
     def get(self, request):
-        return render(request, self.template_name)
+        valorSerie = ValorSerieForm()
+        interes = InteresForm()
+        numeroPeriodos = NumeroPeriodosForm()
+        tipoPeriodos = TipoPeriodosForm()
+        return render(request, self.getTemplate,
+                      {'interes': interes, 'valorSerie': valorSerie,
+                       'numeroPeriodos': numeroPeriodos, 'tipoPeriodos': tipoPeriodos})
+
+    def post(self, request):
+
+        valorSerie = ValorSerieForm(request.POST)
+        interes = InteresForm(request.POST)
+        numeroPeriodos = NumeroPeriodosForm(request.POST)
+        tipoPeriodos = TipoPeriodosForm(request.POST)
+        periodos = []
+
+        for x in range(int(numeroPeriodos['numeroPeriodos'].value()) + 1):
+            periodos.append(str(x))
+
+        for x in periodos:
+            print(periodos)
+            print(x)
+
+        return render(request, self.postTemplate,
+                      {'interes': interes, 'valorSerie': valorSerie,
+                       'numeroPeriodos': numeroPeriodos, 'tipoPeriodos': tipoPeriodos,
+                       'stringTipoPeriodos': tipoPeriodos['tipoPeriodos'].value(),
+                       'stringNumeroPeriodos': numeroPeriodos['numeroPeriodos'].value(),
+                       'stringValorSerie': valorSerie['valorSerie'].value(),
+                       'stringValorInteres': interes['interes'].value()})
 
 
 class SerieUniformeEquivalenteFuturoView (TemplateView):

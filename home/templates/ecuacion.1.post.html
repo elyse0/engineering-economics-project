@@ -69,6 +69,7 @@
             labels: periodos,
             datasets: [{
                 lineTension: 0,
+                steppedLine: 'middle',
                 label: 'Valor futuro de una cantidad presente',
                 borderColor: 'rgb(255, 99, 132)',
                 data: pagos,
@@ -94,7 +95,7 @@
         }
         });
 
-        document.getElementById("mydiv").innerHTML = 'Valor Futuro (F): ' + pagos[pagos.length - 1].toFixed(6);
+        document.getElementById("mydiv").innerHTML = 'Valor futuro (F): $' + pagos[pagos.length - 1].toFixed(6);
     </script>
 
 {% endblock %}
