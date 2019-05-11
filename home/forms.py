@@ -34,4 +34,4 @@ class ValorGradienteForm(forms.Form):
     valorGradiente = forms.FloatField(label='Valor del gradiente:', min_value= 0, max_value = 10000000)
 
 class ValorInicialForm(forms.Form):
-    valorInicial = forms.FloatField(label='Valor inicial:', min_value=0, max_value=10000000)
+    valorInicial = forms.FloatField(label='Pago base:', min_value=0, max_value=10000000)

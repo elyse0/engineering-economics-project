@@ -327,15 +327,80 @@ class ValorPresenteEquivalenteTotalGradienteView (TemplateView):
 
 class SerieAnualEquivalenteGradienteView (TemplateView):
 
-    template_name = 'ecuacion.9.get.html'
+    getTemplate = 'ecuacion.9.get.html'
+    postTemplate = 'ecuacion.9.post.html'
 
     def get(self, request):
-        return render(request, self.template_name)
+        valorInicial = ValorInicialForm()
+        valorGradiente = ValorGradienteForm()
+        interes = InteresForm()
+        numeroPeriodos = NumeroPeriodosForm()
+        tipoPeriodos = TipoPeriodosForm()
+        return render(request, self.getTemplate,
+                      {'interes': interes, 'valorGradiente': valorGradiente, 'valorInicial': valorInicial,
+                       'numeroPeriodos': numeroPeriodos, 'tipoPeriodos': tipoPeriodos})
 
+    def post(self, request):
+
+        valorInicial = ValorInicialForm(request.POST)
+        valorGradiente = ValorGradienteForm(request.POST)
+        interes = InteresForm(request.POST)
+        numeroPeriodos = NumeroPeriodosForm(request.POST)
+        tipoPeriodos = TipoPeriodosForm(request.POST)
+        periodos = []
+
+        for x in range(int(numeroPeriodos['numeroPeriodos'].value()) + 1):
+            periodos.append(str(x))
+
+        for x in periodos:
+            print(periodos)
+            print(x)
+
+        return render(request, self.postTemplate,
+                      {'interes': interes, 'valorGradiente': valorGradiente, 'valorInicial': valorInicial,
+                       'numeroPeriodos': numeroPeriodos, 'tipoPeriodos': tipoPeriodos,
+                       'stringTipoPeriodos': tipoPeriodos['tipoPeriodos'].value(),
+                       'stringNumeroPeriodos': numeroPeriodos['numeroPeriodos'].value(),
+                       'stringValorInicial': valorInicial['valorInicial'].value(),
+                       'stringValorGradiente': valorGradiente['valorGradiente'].value(),
+                       'stringValorInteres': interes['interes'].value()})
 
 class SerieUniformeEquivalenteTotalGradienteView (TemplateView):
 
-    template_name = 'ecuacion.10.get.html'
+    getTemplate = 'ecuacion.10.get.html'
+    postTemplate = 'ecuacion.10.post.html'
 
     def get(self, request):
-        return render(request, self.template_name)
+        valorInicial = ValorInicialForm()
+        valorGradiente = ValorGradienteForm()
+        interes = InteresForm()
+        numeroPeriodos = NumeroPeriodosForm()
+        tipoPeriodos = TipoPeriodosForm()
+        return render(request, self.getTemplate,
+                      {'interes': interes, 'valorGradiente': valorGradiente, 'valorInicial': valorInicial,
+                       'numeroPeriodos': numeroPeriodos, 'tipoPeriodos': tipoPeriodos})
+
+    def post(self, request):
+
+        valorInicial = ValorInicialForm(request.POST)
+        valorGradiente = ValorGradienteForm(request.POST)
+        interes = InteresForm(request.POST)
+        numeroPeriodos = NumeroPeriodosForm(request.POST)
+        tipoPeriodos = TipoPeriodosForm(request.POST)
+        periodos = []
+
+        for x in range(int(numeroPeriodos['numeroPeriodos'].value()) + 1):
+            periodos.append(str(x))
+
+        for x in periodos:
+            print(periodos)
+            print(x)
+
+        return render(request, self.postTemplate,
+                      {'interes': interes, 'valorGradiente': valorGradiente, 'valorInicial': valorInicial,
+                       'numeroPeriodos': numeroPeriodos, 'tipoPeriodos': tipoPeriodos,
+                       'stringTipoPeriodos': tipoPeriodos['tipoPeriodos'].value(),
+                       'stringNumeroPeriodos': numeroPeriodos['numeroPeriodos'].value(),
+                       'stringValorInicial': valorInicial['valorInicial'].value(),
+                       'stringValorGradiente': valorGradiente['valorGradiente'].value(),
+                       'stringValorInteres': interes['interes'].value()})

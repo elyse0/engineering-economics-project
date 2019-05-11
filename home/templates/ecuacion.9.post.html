@@ -2,10 +2,152 @@
 
 {% block head %}
 
-    Serie anual equivalente al gradiente
+    <title>Serie anual equivalente al gradiente</title>
+
+    <div class="container" align="middle" >
+
+        <div class="jumbotron">
+
+            <h1>Serie uniforme equivalente al gradiente (A1)</h1>
+        </div>
+    </div>
 {% endblock %}
 
 {% block body %}
 
+    <div class="container" >
+        <div class="row">
 
+            <div class="col-md-4">
+
+                <form method="post">
+
+                    {% csrf_token %}
+                    {{ valorInicial.as_p }}
+                    {{ valorGradiente.as_p }}
+                    {{ interes.as_p}}
+                    {{ numeroPeriodos.as_p }}
+                    {{ tipoPeriodos.as_p }}
+                    <button type="submit">Calcular</button>
+                </form>
+                <br>
+                <div id="mydiv"> </div>
+            </div>
+
+            <div class="col-md-8">
+
+                <canvas id="myChart" width="400" height="100"></canvas>
+                <canvas id="myChart2" width="400" height="100"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var ctx2 = document.getElementById('myChart2').getContext('2d');
+
+        var tipoPeriodoString;
+
+        if ('{{ stringTipoPeriodos }}' == 'Años')
+            tipoPeriodoString = 'año';
+        else if ('{{ stringTipoPeriodos }}' == 'Meses')
+            tipoPeriodoString = 'mes';
+        else tipoPeriodoString = 'dia';
+
+        var periodos = [];
+        for (let i = 0; i < Number({{ stringNumeroPeriodos }}) + 1; i++) {
+
+            periodos.push(i.toString())
+        }
+
+        var pagos = new Array(Number({{ stringNumeroPeriodos }}) + 1);
+        var pagos2 = new Array(Number({{ stringNumeroPeriodos }}) + 1);
+
+        var valorSerie = (Number({{ stringValorGradiente }})) * ((1/ Number({{ stringValorInteres }})) -
+            (Number({{ stringNumeroPeriodos }}) / Number({{ stringValorInteres }})) *
+            (Number({{ stringValorInteres }}) /
+                (Math.pow(1 + Number({{ stringValorInteres }}),Number({{ stringNumeroPeriodos }})) - 1)));
+
+        for (let i = 1; i < pagos.length; i++) {
+
+            pagos[i] = (Number({{ stringValorInicial }}) + (Number({{ stringValorGradiente}}) * (i - 1))).toString();
+            pagos2[i] = (valorSerie.toFixed(6)).toString()
+        }
+
+        //pagos[0] =  '0';
+
+        var chart2 = new Chart(ctx2, {
+        // The type of chart we want to create
+        type: 'line',
+        // The data for our dataset
+        data: {
+
+            labels: periodos,
+            datasets: [{
+                lineTension: 0,
+                steppedLine: 'middle',
+                label: 'Valor presente equivalente total a un gradiente',
+                borderColor: 'rgb(255, 99, 132)',
+                data: pagos2,
+            }]
+        },
+
+        // Configuration options go here
+        options: {
+            scales: {
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: '$'
+                    }
+                 }],
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: '{{ stringTipoPeriodos }}'
+                    }
+                 }]
+            }
+        }
+        });
+
+        var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'line',
+        // The data for our dataset
+        data: {
+
+            labels: periodos,
+            datasets: [{
+                lineTension: 0,
+                steppedLine: 'middle',
+                label: 'Valor presente equivalente total a un gradiente',
+                borderColor: 'rgb(255, 99, 132)',
+                data: pagos,
+            }]
+        },
+
+        // Configuration options go here
+        options: {
+            scales: {
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: '$'
+                    }
+                 }],
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: '{{ stringTipoPeriodos }}'
+                    }
+                 }]
+            }
+        }
+        });
+
+        document.getElementById("mydiv").innerHTML = 'Serie uniforme equivalente al gradiente (A1): $'
+            + valorSerie.toFixed(6) + '/' + tipoPeriodoString;
+    </script>
 {% endblock %}
