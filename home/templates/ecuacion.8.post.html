@@ -2,10 +2,110 @@
 
 {% block head %}
 
-    Valor presente equivalente total de un gradiente
+    <title>Valor presente equivalente total a un gradiente</title>
+
+    <div class="container" align="middle" >
+
+        <div class="jumbotron">
+
+            <h1>Valor presente equivalente total a un gradiente (PA + PG)</h1>
+        </div>
+    </div>
 {% endblock %}
 
 {% block body %}
 
 
+    <div class="container" >
+        <div class="row">
+
+            <div class="col-md-4">
+
+                <form method="post">
+
+                    {% csrf_token %}
+                    {{ valorInicial.as_p }}
+                    {{ valorGradiente.as_p }}
+                    {{ interes.as_p}}
+                    {{ numeroPeriodos.as_p }}
+                    {{ tipoPeriodos.as_p }}
+                    <button type="submit">Calcular</button>
+                </form>
+                <br>
+                <div id="mydiv"> </div>
+            </div>
+
+            <div class="col-md-8">
+
+                <canvas id="myChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+
+        var periodos = [];
+        for (let i = 0; i < Number({{ stringNumeroPeriodos }}) + 1; i++) {
+
+            periodos.push(i.toString())
+        }
+
+        var pagos = new Array(Number({{ stringNumeroPeriodos }}) + 1);
+
+        var valorPresente = (Number({{ stringValorGradiente }})) * ((1/ Number({{ stringValorInteres }})) * ((Math.pow((1 + Number({{ stringValorInteres }})),
+            Number({{ stringNumeroPeriodos }})) - 1) / (Number({{ stringValorInteres }}) * (Math.pow((1 + Number({{ stringValorInteres }})),
+            Number({{ stringNumeroPeriodos }})))) - ((Number({{ stringNumeroPeriodos }})) / (Math.pow((1 + Number({{ stringValorInteres }})),
+            Number({{ stringNumeroPeriodos }}))))));
+
+        valorPresente += (Number({{ stringValorInicial }})) * ((Math.pow((1 + Number({{ stringValorInteres }})),
+            Number({{ stringNumeroPeriodos }})) - 1)/((Number({{ stringValorInteres }}) * (Math.pow((1 + Number({{ stringValorInteres }})),
+            Number({{ stringNumeroPeriodos }}))))));
+
+        for (let i = 1; i < pagos.length; i++) {
+
+            pagos[i] = (Number({{ stringValorInicial }}) + (Number({{ stringValorGradiente}}) * (i - 1))).toString();
+        }
+
+        pagos[0] =  (( -1 * valorPresente)).toString();
+
+        var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'line',
+        // The data for our dataset
+        data: {
+
+            labels: periodos,
+            datasets: [{
+                lineTension: 0,
+                steppedLine: 'middle',
+                label: 'Valor presente equivalente total a un gradiente',
+                borderColor: 'rgb(255, 99, 132)',
+                data: pagos,
+            }]
+        },
+
+        // Configuration options go here
+        options: {
+            scales: {
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: '$'
+                    }
+                 }],
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: '{{ stringTipoPeriodos }}'
+                    }
+                 }]
+            }
+        }
+        });
+
+        document.getElementById("mydiv").innerHTML = 'Valor presente equivalente total a un gradiente (PG + PA): $'
+            + valorPresente.toFixed(6);
+    </script>
 {% endblock %}
