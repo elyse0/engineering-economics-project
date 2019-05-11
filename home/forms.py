@@ -28,3 +28,10 @@ class TipoPeriodosForm (forms.Form):
 class ValorSerieForm(forms.Form):
 
     valorSerie = forms.FloatField(label='Valor de la serie:', min_value= 0, max_value = 10000000)
+
+class ValorGradienteForm(forms.Form):
+
+    valorGradiente = forms.FloatField(label='Valor del gradiente:', min_value= 0, max_value = 10000000)
+
+class ValorInicialForm(forms.Form):
+    valorInicial = forms.FloatField(label='Valor inicial:', min_value=0, max_value=10000000)
