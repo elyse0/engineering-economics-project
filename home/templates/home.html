@@ -3,6 +3,94 @@
 {% block head %}
 
     <title>Ingeniería Económica</title>
+
+    <style>
+
+        .hovereffect {
+  width: 100%;
+  height: 100%;
+  float: left;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  cursor: default;
+}
+
+.hovereffect .overlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  background-color: rgba(75,75,75,0.7);
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+.hovereffect:hover .overlay {
+  background-color: rgba(48, 152, 157, 0.4);
+}
+
+.hovereffect img {
+  display: block;
+  position: relative;
+}
+
+.hovereffect h2 {
+  text-transform: uppercase;
+  color: #fff;
+  text-align: center;
+  position: relative;
+  font-size: 17px;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.6);
+  -webkit-transform: translateY(45px);
+  -ms-transform: translateY(45px);
+  transform: translateY(45px);
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+.hovereffect:hover h2 {
+  -webkit-transform: translateY(5px);
+  -ms-transform: translateY(5px);
+  transform: translateY(5px);
+}
+
+.hovereffect a.info {
+  display: inline-block;
+  text-decoration: none;
+  padding: 7px 14px;
+  text-transform: uppercase;
+  color: #fff;
+  border: 1px solid #fff;
+  background-color: transparent;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+  font-weight: normal;
+  margin: -52px 0 0 0;
+  padding: 62px 100px;
+}
+
+.hovereffect:hover a.info {
+  opacity: 1;
+  filter: alpha(opacity=100);
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+}
+
+.hovereffect a.info:hover {
+  box-shadow: 0 0 5px #fff;
+}
+
+    </style>
 {% endblock %}
 
 {% block body%}
@@ -13,34 +101,52 @@
     <div class="container">
 
         <div class="row">
-            <div class="col-md-3"><img class="img-responsive" src="http://2.bp.blogspot.com/-H6MAoWN-UIE/TuRwLbHRSWI/AAAAAAAABBk/89iiEulVsyg/s400/Free%2BNature%2BPhoto.jpg" /></div>
+
+            <div class="col-md-3">
+                <div class="hovereffect">
+                    <img class="img-responsive" src='' alt="">
+                    <div class="overlay">
+                       <h2>Hover effect 4</h2>
+                       <a class="info" href="#">link here</a>
+                    </div>
+                </div>
+            </div>
+
             <div class="col-md-1"></div>
-            <div class="col-md-3"><img class="img-responsive" src="http://th03.deviantart.net/fs70/200H/f/2010/256/0/9/painting_of_nature_by_dhikagraph-d2ynalq.jpg" /></div>
+            <div class="col-md-3"><img class="img-responsive" src="https://raw.githubusercontent.com/kolverar/amish/master/formula.2.png" /></div>
             <div class="col-md-1"></div>
-            <div class="col-md-3"><img class="img-responsive" src="http://2.bp.blogspot.com/-H6MAoWN-UIE/TuRwLbHRSWI/AAAAAAAABBk/89iiEulVsyg/s400/Free%2BNature%2BPhoto.jpg" /></div>
+            <div class="col-md-3"><img class="img-responsive" src="https://i.imgur.com/6fTxdCC.png" /></div>
         </div>
 
         <br>
 
         <div class="row">
-            <div class="col-md-3"><img class="img-responsive" src="http://2.bp.blogspot.com/-H6MAoWN-UIE/TuRwLbHRSWI/AAAAAAAABBk/89iiEulVsyg/s400/Free%2BNature%2BPhoto.jpg" /></div>
+            <div class="col-md-3"><img class="img-responsive" src="https://i.imgur.com/MgAfzNR.png" /></div>
             <div class="col-md-1"></div>
-            <div class="col-md-3"><img class="img-responsive" src="http://th03.deviantart.net/fs70/200H/f/2010/256/0/9/painting_of_nature_by_dhikagraph-d2ynalq.jpg" /></div>
+            <div class="col-md-3"><img class="img-responsive" src="https://i.imgur.com/K94wa9V.png" /></div>
             <div class="col-md-1"></div>
-            <div class="col-md-3"><img class="img-responsive" src="http://2.bp.blogspot.com/-H6MAoWN-UIE/TuRwLbHRSWI/AAAAAAAABBk/89iiEulVsyg/s400/Free%2BNature%2BPhoto.jpg" /></div>
+            <div class="col-md-3"><img class="img-responsive" src="https://i.imgur.com/r7wHAvW.png" /></div>
         </div>
 
         <br>
 
         <div class="row">
-            <div class="col-md-3"><img class="img-responsive" src="http://2.bp.blogspot.com/-H6MAoWN-UIE/TuRwLbHRSWI/AAAAAAAABBk/89iiEulVsyg/s400/Free%2BNature%2BPhoto.jpg" /></div>
+            <div class="col-md-3"><img class="img-responsive" src="https://i.imgur.com/4pqMqRH.png" /></div>
             <div class="col-md-1"></div>
-            <div class="col-md-3"><img class="img-responsive" src="http://th03.deviantart.net/fs70/200H/f/2010/256/0/9/painting_of_nature_by_dhikagraph-d2ynalq.jpg" /></div>
+            <div class="col-md-3"><img class="img-responsive" src="https://i.imgur.com/qckqDpC.png" /></div>
             <div class="col-md-1"></div>
-            <div class="col-md-3"><img class="img-responsive" src="http://2.bp.blogspot.com/-H6MAoWN-UIE/TuRwLbHRSWI/AAAAAAAABBk/89iiEulVsyg/s400/Free%2BNature%2BPhoto.jpg" /></div>
+            <div class="col-md-3"><img class="img-responsive" src="https://i.imgur.com/SBi3keg.png" /></div>
         </div>
 
         <br>
+
+        <div class="row">
+            <div class="col-md-3"><img class="img-responsive" src="https://i.imgur.com/eT7ysU6.png" /></div>
+            <div class="col-md-1"></div>
+        </div>
+
+        <br>
+
 </div>
 
 
