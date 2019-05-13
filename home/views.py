@@ -325,7 +325,7 @@ class ValorPresenteEquivalenteTotalGradienteView (TemplateView):
                        'stringValorInteres': interes['interes'].value()})
 
 
-class SerieAnualEquivalenteGradienteView (TemplateView):
+class SerieUniformeEquivalenteGradienteView (TemplateView):
 
     getTemplate = 'ecuacion.9.get.html'
     postTemplate = 'ecuacion.9.post.html'
